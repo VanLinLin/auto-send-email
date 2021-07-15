@@ -1,26 +1,8 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[12]:
-
-
 import smtplib
 import pandas as pd
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from smtpd import COMMASPACE
-
-
-# In[13]:
-
-
-path = input("請輸入檔案路徑(csv): ")
-df = pd.read_csv(fr"{path}")
-print(df)
-
-
-# In[14]:
-
 
 class SendEmailByGoogleMail:
     def __init__(self, subject, username, password, receivers:list):
@@ -66,30 +48,17 @@ class SendEmailByGoogleMail:
         smtp.sendmail(self.sender, self.receivers, msg_root.as_string())
         print("郵件發送成功")
 
-
-# In[15]:
-
-
-print(df.head())
-
-
-# In[16]:
-
+ 
+path = input("請輸入檔案路徑(csv): ")
+df = pd.read_csv(fr"{path}")
+print(df)
 
 column = input("請輸入email資料所在欄位: ")
 email_df = df[(df[column].notna() == True)]
 print(email_df)
 
-
-# In[17]:
-
-
 receivers = list(email_df[column])
 print(receivers)
-
-
-# In[18]:
-
 
 sender = input("請輸入你的完整gmail帳號(xxx@gmail.com): ")
 password = input("請輸入你的應用程式密碼(16位): ")
@@ -108,10 +77,3 @@ sebg = SendEmailByGoogleMail(subject=mail_subject,
                              password=password,
                              receivers=final_receivers)
 sebg.send_mail('common', content=mail_content, files=None)
-
-
-# In[ ]:
-
-
-
-
